@@ -278,6 +278,35 @@
             margin: 0 10px;
         }
 
+        /* 证书与奖项表格 */
+        .certificate-table table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .certificate-table th,
+        .certificate-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+
+        .certificate-table th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .certificate-table tr:nth-child(even) {
+            background-color: #f4f4f4;
+        }
+
+        .certificate-table tr:hover {
+            background-color: var(--accent-color);
+            color: white;
+            transition: 0.3s;
+        }
+
         /* 响应式设计 */
         @media (max-width: 768px) {
             .nav-menu {
@@ -318,11 +347,10 @@
             <a href="#" class="logo">照彻</a>
             <ul class="nav-menu">
                 <li><a href="#about">关于我</a></li>
-                <li><a href="#contact">联系方式</a></li>
                 <li><a href="#experience">个人履历</a></li>
                 <li><a href="#portfolio">作品展示</a></li>
-                <li><a href="#blog">博客动态</a></li>
                 <li><a href="#personal">个性化内容</a></li>
+                <li><a href="#contact">联系方式</a></li>
             </ul>
             <div class="hamburger">
                 <i class="fas fa-bars"></i>
@@ -336,8 +364,8 @@
             <img src="https://placehold.co/200x200?text=照彻" alt="照彻的头像" class="avatar">
             <h1>照彻</h1>
             <div class="intro-text">
-                <p>前端开发工程师 | 摄影爱好者 | 旅行者</p>
-                <p>热爱创造美观且实用的网页，喜欢用代码实现想法，享受探索未知的过程。</p>
+                <p>嵌入式软件工程师 | 摄影爱好者 | 旅行者</p>
+                <p>让硅片思考，让想法闪光</p>
             </div>
         </div>
     </header>
@@ -347,36 +375,9 @@
         <div class="container">
             <h2>关于我</h2>
             <div class="card">
-                <p>你好！我是照彻，一名充满热情的前端开发工程师。我热爱将复杂问题转化为简洁优雅的解决方案，喜欢学习新技术和挑战自己。</p>
+                <p>你好！我是照彻，一名充满热情的嵌入式软件工程师。我热爱将复杂问题转化为简洁优雅的解决方案，喜欢学习新技术和挑战自己。</p>
                 <p>工作之余，我喜欢摄影、阅读和旅行。我相信生活需要平衡，而创意往往来自于工作之外的兴趣和体验。</p>
                 <p>我的工作理念是：保持好奇心，持续学习，注重细节，为用户创造有价值的体验。</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- 联系方式 -->
-    <section id="contact">
-        <div class="container">
-            <h2>联系方式</h2>
-            <div class="card">
-                <p><i class="fas fa-envelope"></i> 邮箱：<a href="mailto:1234567890@qq.com">1234567890@qq.com</a></p>
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-weibo"></i></a>
-                    <a href="#"><i class="fab fa-weixin"></i></a>
-                    <a href="#"><i class="fab fa-linkedin"></i></a>
-                    <a href="#"><i class="fab fa-github"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                </div>
-            </div>
-            
-            <div class="card">
-                <h3>留言给我</h3>
-                <form class="contact-form">
-                    <input type="text" placeholder="您的姓名" required>
-                    <input type="email" placeholder="您的邮箱" required>
-                    <textarea placeholder="您的留言" required></textarea>
-                    <button type="submit" class="btn">发送留言</button>
-                </form>
             </div>
         </div>
     </section>
@@ -385,23 +386,21 @@
     <section id="experience">
         <div class="container">
             <h2>个人履历</h2>
-            
             <div class="card">
                 <h3>教育背景</h3>
                 <div class="timeline">
                     <div class="timeline-item">
                         <h4>电子信息 硕士</h4>
                         <p>华南师范大学 | 2024 - 2027</p>
-                        <p>主修光电信息工程，毕业论文获得优秀评价。</p>
+                        <p>主修光电信息工程，获校级一等学业奖学金、国家奖学金</p>
                     </div>
                     <div class="timeline-item">
                         <h4>电子信息工程 学士</h4>
-                        <p>邵阳学院 | 2014 - 2018</p>
-                        <p>主修嵌入式软件开发，获评湖南省创新创业优秀毕业生。</p>
+                        <p>邵阳学院 | 2020 - 2024</p>
+                        <p>主修嵌入式软件开发，主持一项国家级大学生创新创业训练计划项目、获评湖南省创新创业优秀毕业生。</p>
                     </div>
                 </div>
             </div>
-            
             <div class="card">
                 <h3>工作经历</h3>
                 <div class="timeline">
@@ -417,40 +416,83 @@
                     </div>
                 </div>
             </div>
-            
             <div class="card">
                 <h3>技能树</h3>
                 <div class="skills">
-                    <p>HTML/CSS</p>
+                    <p>嵌入式软件开发</p>
                     <div class="skill-bar">
-                        <div class="skill-level" style="width: 95%">95%</div>
+                        <div class="skill-level" style="width: 95%">90%</div>
                     </div>
-                    <p>JavaScript</p>
+                    <p>电路设计</p>
                     <div class="skill-bar">
-                        <div class="skill-level" style="width: 90%">90%</div>
+                        <div class="skill-level" style="width: 90%">80%</div>
                     </div>
-                    <p>React</p>
+                    <p>PCB layout</p>
                     <div class="skill-bar">
-                        <div class="skill-level" style="width: 85%">85%</div>
+                        <div class="skill-level" style="width: 85%">80%</div>
                     </div>
-                    <p>Vue.js</p>
+                    <p>上位机开发</p>
                     <div class="skill-bar">
-                        <div class="skill-level" style="width: 80%">80%</div>
+                        <div class="skill-level" style="width: 80%">40%</div>
                     </div>
-                    <p>UI/UX设计</p>
+                    <p>网页设计</p>
                     <div class="skill-bar">
-                        <div class="skill-level" style="width: 75%">75%</div>
+                        <div class="skill-level" style="width: 75%">30%</div>
                     </div>
                 </div>
             </div>
-            
             <div class="card">
                 <h3>证书与奖项</h3>
-                <ul>
-                    <li>前端性能优化认证 - 2022</li>
-                    <li>某某设计大赛一等奖 - 2021</li>
-                    <li>Web开发最佳实践认证 - 2020</li>
-                </ul>
+                <div class="certificate-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>项目名称</th>
+                                <th>所获奖项</th>
+                                <th>主办单位</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>嵌入式芯片与系统设计竞赛</td>
+                                <td>国家级一等奖</td>
+                                <td>中国电子学会</td>
+                            </tr>
+                            <tr>
+                                <td>大学生智能硬件设计竞赛</td>
+                                <td>国家级一等奖</td>
+                                <td>中国电子学会</td>
+                            </tr>
+                            
+                            <tr>
+                                <td>蓝桥杯全国软件和信息技术专业竞赛</td>
+                                <td>国家级二等奖</td>
+                                <td>工业和信息化部</td>
+                            </tr>
+                            <tr>
+                                <td>大学生创新创业训练计划项目</td>
+                                <td>国家级（已结题）</td>
+                                <td>湖南省教育厅</td>
+                            </tr>
+                              <tr>
+                                <td>湖南省物联网创新设计竞赛</td>
+                                <td>省级二等奖</td>
+                                <td>湖南省教育厅</td>
+                             </tr>
+                              <tr>
+                                <td>湖南省电子设计竞赛</td>
+                                <td>省级三等奖</td>
+                                <td>湖南省教育厅</td>
+                            </tr>
+                             <tr>
+                                <td>中国研究生电子设计竞赛</td>
+                                <td>省级二等奖</td>
+                                <td>中国学位与研究生教育学会</td>
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </section>
@@ -468,7 +510,6 @@
                         <a href="#" class="btn">查看详情</a>
                     </div>
                 </div>
-                
                 <div class="portfolio-item">
                     <img src="https://placehold.co/600x400?text=项目二" alt="项目二" class="portfolio-img">
                     <div class="portfolio-overlay">
@@ -477,7 +518,6 @@
                         <a href="#" class="btn">查看详情</a>
                     </div>
                 </div>
-                
                 <div class="portfolio-item">
                     <img src="https://placehold.co/600x400?text=项目三" alt="项目三" class="portfolio-img">
                     <div class="portfolio-overlay">
@@ -490,56 +530,34 @@
         </div>
     </section>
 
-    <!-- 博客动态 -->
-    <section id="blog">
-        <div class="container">
-            <h2>博客动态</h2>
-            <div class="card">
-                <h3>最新文章</h3>
-                <div class="blog-list">
-                    <div class="blog-item">
-                        <h4><a href="#">前端性能优化实践指南</a></h4>
-                        <p>2023年10月15日 | 技术分享</p>
-                        <p>分享我在项目中实践的前端性能优化技巧和方法...</p>
-                    </div>
-                    <div class="blog-item">
-                        <h4><a href="#">响应式设计的最佳实践</a></h4>
-                        <p>2023年9月28日 | 技术分享</p>
-                        <p>探讨如何创建在各种设备上都能提供优秀体验的响应式网站...</p>
-                    </div>
-                    <div class="blog-item">
-                        <h4><a href="#">我的2023年阅读清单</a></h4>
-                        <p>2023年8月10日 | 生活随笔</p>
-                        <p>分享今年对我影响最大的几本书和阅读体验...</p>
-                    </div>
-                </div>
-                <a href="#" class="btn">查看更多文章</a>
-            </div>
-        </div>
-    </section>
-
     <!-- 个性化内容 -->
     <section id="personal">
         <div class="container">
             <h2>个性化内容</h2>
-            
             <div class="card">
                 <h3>兴趣爱好</h3>
                 <p>摄影、徒步旅行、阅读科幻小说、咖啡品尝、古典音乐</p>
             </div>
-            
-            <div class="card">
-                <h3>近期阅读清单</h3>
-                <ul>
-                    <li>《深入理解现代JavaScript》 - 已读</li>
-                    <li>《用户体验要素》 - 阅读中</li>
-                    <li>《三体》 - 计划阅读</li>
-                </ul>
-            </div>
-            
             <div class="card">
                 <h3>座右铭</h3>
                 <blockquote>"代码就像诗，应当简洁而优雅。"</blockquote>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系方式 -->
+    <section id="contact">
+        <div class="container">
+            <h2>联系方式</h2>
+            <div class="card">
+                <p><i class="fas fa-envelope"></i> 邮箱：<a href="mailto:1234567890@qq.com">1234567890@qq.com</a></p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-weibo"></i></a>
+                    <a href="#"><i class="fab fa-weixin"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
             </div>
         </div>
     </section>
@@ -579,10 +597,8 @@
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
-                
                 const targetId = this.getAttribute('href');
                 if(targetId === '#') return;
-                
                 const targetElement = document.querySelector(targetId);
                 if(targetElement) {
                     window.scrollTo({
