@@ -1,11 +1,597 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-  <title>我的主页</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>照彻的个人网页</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* 变量定义 */
+        :root {
+            --primary-color: #4a6fa5;
+            --secondary-color: #6c757d;
+            --accent-color: #ff6b6b;
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
+            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --name: "照彻";
+            --email: "1234567890@qq.com";
+            --avatar-url: "https://placehold.co/200x200?text=照彻";
+        }
+
+        /* 基础样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            line-height: 1.6;
+            color: var(--dark-color);
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        section {
+            padding: 60px 0;
+        }
+
+        h1, h2, h3, h4 {
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        a:hover {
+            color: var(--accent-color);
+        }
+
+        /* 导航栏 */
+        .navbar {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-menu li {
+            margin-left: 30px;
+        }
+
+        .nav-menu a {
+            color: var(--dark-color);
+            font-weight: 500;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+        }
+
+        /* 头部区域 */
+        .header {
+            padding-top: 100px;
+            padding-bottom: 60px;
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary-color) 0%, #2c3e50 100%);
+            color: white;
+        }
+
+        .avatar {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid white;
+            margin-bottom: 20px;
+        }
+
+        .intro-text {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* 卡片样式 */
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* 联系表单 */
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .contact-form textarea {
+            height: 150px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background: var(--accent-color);
+        }
+
+        /* 时间轴样式 */
+        .timeline {
+            position: relative;
+            margin: 30px 0;
+            padding-left: 30px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 2px;
+            height: 100%;
+            background: var(--primary-color);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -38px;
+            top: 5px;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: var(--primary-color);
+        }
+
+        /* 作品展示 */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .portfolio-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .portfolio-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .portfolio-item:hover .portfolio-img {
+            transform: scale(1.1);
+        }
+
+        .portfolio-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 20px;
+            transform: translateY(100%);
+            transition: transform 0.3s;
+        }
+
+        .portfolio-item:hover .portfolio-overlay {
+            transform: translateY(0);
+        }
+
+        /* 技能条 */
+        .skill-bar {
+            background: #e9ecef;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .skill-level {
+            background: var(--primary-color);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            text-align: right;
+            font-size: 14px;
+        }
+
+        /* 页脚 */
+        .footer {
+            background: var(--dark-color);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .social-links {
+            margin-bottom: 20px;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            margin: 0 10px;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background-color: white;
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+                padding: 20px 0;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .nav-menu li {
+                margin: 15px 0;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-  <h1>欢迎来到我的 GitHub 主页 🎉</h1>
-  <p>这是我使用 GitHub Pages 创建的个人网站。</p>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo">照彻</a>
+            <ul class="nav-menu">
+                <li><a href="#about">关于我</a></li>
+                <li><a href="#contact">联系方式</a></li>
+                <li><a href="#experience">个人履历</a></li>
+                <li><a href="#portfolio">作品展示</a></li>
+                <li><a href="#blog">博客动态</a></li>
+                <li><a href="#personal">个性化内容</a></li>
+            </ul>
+            <div class="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 头部区域 -->
+    <header class="header">
+        <div class="container">
+            <img src="https://placehold.co/200x200?text=照彻" alt="照彻的头像" class="avatar">
+            <h1>照彻</h1>
+            <div class="intro-text">
+                <p>前端开发工程师 | 摄影爱好者 | 旅行者</p>
+                <p>热爱创造美观且实用的网页，喜欢用代码实现想法，享受探索未知的过程。</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- 关于我 -->
+    <section id="about">
+        <div class="container">
+            <h2>关于我</h2>
+            <div class="card">
+                <p>你好！我是照彻，一名充满热情的前端开发工程师。我热爱将复杂问题转化为简洁优雅的解决方案，喜欢学习新技术和挑战自己。</p>
+                <p>工作之余，我喜欢摄影、阅读和旅行。我相信生活需要平衡，而创意往往来自于工作之外的兴趣和体验。</p>
+                <p>我的工作理念是：保持好奇心，持续学习，注重细节，为用户创造有价值的体验。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系方式 -->
+    <section id="contact">
+        <div class="container">
+            <h2>联系方式</h2>
+            <div class="card">
+                <p><i class="fas fa-envelope"></i> 邮箱：<a href="mailto:1234567890@qq.com">1234567890@qq.com</a></p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-weibo"></i></a>
+                    <a href="#"><i class="fab fa-weixin"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3>留言给我</h3>
+                <form class="contact-form">
+                    <input type="text" placeholder="您的姓名" required>
+                    <input type="email" placeholder="您的邮箱" required>
+                    <textarea placeholder="您的留言" required></textarea>
+                    <button type="submit" class="btn">发送留言</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- 个人履历 -->
+    <section id="experience">
+        <div class="container">
+            <h2>个人履历</h2>
+            
+            <div class="card">
+                <h3>教育背景</h3>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <h4>计算机科学硕士</h4>
+                        <p>某某大学 | 2018 - 2021</p>
+                        <p>主修前端开发与用户体验设计，毕业论文获得优秀评价。</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>软件工程学士</h4>
+                        <p>某某大学 | 2014 - 2018</p>
+                        <p>学习软件开发基础，参与多个校园项目开发。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3>工作经历</h3>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <h4>高级前端工程师</h4>
+                        <p>某某科技有限公司 | 2021年 - 至今</p>
+                        <p>负责公司主要产品的前端架构设计与实现，带领5人前端团队。</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>前端开发工程师</h4>
+                        <p>某某网络公司 | 2019 - 2021</p>
+                        <p>参与企业级应用开发，实现响应式网页设计和交互功能。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3>技能树</h3>
+                <div class="skills">
+                    <p>HTML/CSS</p>
+                    <div class="skill-bar">
+                        <div class="skill-level" style="width: 95%">95%</div>
+                    </div>
+                    <p>JavaScript</p>
+                    <div class="skill-bar">
+                        <div class="skill-level" style="width: 90%">90%</div>
+                    </div>
+                    <p>React</p>
+                    <div class="skill-bar">
+                        <div class="skill-level" style="width: 85%">85%</div>
+                    </div>
+                    <p>Vue.js</p>
+                    <div class="skill-bar">
+                        <div class="skill-level" style="width: 80%">80%</div>
+                    </div>
+                    <p>UI/UX设计</p>
+                    <div class="skill-bar">
+                        <div class="skill-level" style="width: 75%">75%</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3>证书与奖项</h3>
+                <ul>
+                    <li>前端性能优化认证 - 2022</li>
+                    <li>某某设计大赛一等奖 - 2021</li>
+                    <li>Web开发最佳实践认证 - 2020</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- 作品展示 -->
+    <section id="portfolio">
+        <div class="container">
+            <h2>作品展示</h2>
+            <div class="portfolio-grid">
+                <div class="portfolio-item">
+                    <img src="https://placehold.co/600x400?text=项目一" alt="项目一" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3>企业官网 redesign</h3>
+                        <p>为某企业设计的全新响应式官网，提升用户体验和转化率。</p>
+                        <a href="#" class="btn">查看详情</a>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item">
+                    <img src="https://placehold.co/600x400?text=项目二" alt="项目二" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3>电商平台前端优化</h3>
+                        <p>对现有电商平台进行前端性能优化，加载速度提升40%。</p>
+                        <a href="#" class="btn">查看详情</a>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item">
+                    <img src="https://placehold.co/600x400?text=项目三" alt="项目三" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3>移动端应用开发</h3>
+                        <p>使用React Native开发的跨平台移动应用，下载量超10万。</p>
+                        <a href="#" class="btn">查看详情</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 博客动态 -->
+    <section id="blog">
+        <div class="container">
+            <h2>博客动态</h2>
+            <div class="card">
+                <h3>最新文章</h3>
+                <div class="blog-list">
+                    <div class="blog-item">
+                        <h4><a href="#">前端性能优化实践指南</a></h4>
+                        <p>2023年10月15日 | 技术分享</p>
+                        <p>分享我在项目中实践的前端性能优化技巧和方法...</p>
+                    </div>
+                    <div class="blog-item">
+                        <h4><a href="#">响应式设计的最佳实践</a></h4>
+                        <p>2023年9月28日 | 技术分享</p>
+                        <p>探讨如何创建在各种设备上都能提供优秀体验的响应式网站...</p>
+                    </div>
+                    <div class="blog-item">
+                        <h4><a href="#">我的2023年阅读清单</a></h4>
+                        <p>2023年8月10日 | 生活随笔</p>
+                        <p>分享今年对我影响最大的几本书和阅读体验...</p>
+                    </div>
+                </div>
+                <a href="#" class="btn">查看更多文章</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 个性化内容 -->
+    <section id="personal">
+        <div class="container">
+            <h2>个性化内容</h2>
+            
+            <div class="card">
+                <h3>兴趣爱好</h3>
+                <p>摄影、徒步旅行、阅读科幻小说、咖啡品尝、古典音乐</p>
+            </div>
+            
+            <div class="card">
+                <h3>近期阅读清单</h3>
+                <ul>
+                    <li>《深入理解现代JavaScript》 - 已读</li>
+                    <li>《用户体验要素》 - 阅读中</li>
+                    <li>《三体》 - 计划阅读</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3>座右铭</h3>
+                <blockquote>"代码就像诗，应当简洁而优雅。"</blockquote>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="social-links">
+                <a href="#"><i class="fab fa-weibo"></i></a>
+                <a href="#"><i class="fab fa-weixin"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+            </div>
+            <p>© 2023 照彻的个人网页. 保留所有权利.</p>
+            <p>邮箱: <a href="mailto:1234567890@qq.com">1234567890@qq.com</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // 导航栏切换
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // 关闭移动端菜单
+        document.querySelectorAll('.nav-menu a').forEach(item => {
+            item.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
