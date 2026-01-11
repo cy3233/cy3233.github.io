@@ -3,608 +3,503 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>照彻的个人网页</title>
+    <title>个人主页 | 照彻</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
     <style>
-        /* 变量定义 */
+        /* ==========================================================================
+           【区域 1：样式配置】
+           ========================================================================== */
         :root {
-            --primary-color: #4a6fa5;
-            --secondary-color: #6c757d;
-            --accent-color: #ff6b6b;
-            --light-color: #f8f9fa;
-            --dark-color: #343a40;
-            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            --name: "照彻";
-            --email: "1234567890@qq.com";
-            --avatar-url: "https://placehold.co/200x200?text=照彻";
+            --primary: #0071e3; 
+            --bg-color: #f5f5f7;
+            --card-bg: #ffffff;
+            --card-radius: 28px;
+            --font-main: 'Noto Sans SC', system-ui, -apple-system, sans-serif;
+            --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+            
+            /* 系统变量 */
+            --text-main: #1d1d1f;
+            --text-muted: #86868b;
+            --card-border: rgba(0, 0, 0, 0.04);
+            --box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
         }
 
-        /* 基础样式 */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        /* --- 核心样式 --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+        body { background-color: var(--bg-color); color: var(--text-main); font-family: var(--font-main); font-size: 18px; line-height: 1.8; overflow-x: hidden; }
+        
+        /* 优化：锚点定位偏移，防止被导航栏遮挡 */
+        section { scroll-margin-top: 100px; }
 
-        body {
-            font-family: var(--font-main);
-            line-height: 1.6;
-            color: var(--dark-color);
-            background-color: #f4f4f4;
-        }
-
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 15px;
-        }
-
-        section {
-            padding: 60px 0;
-        }
-
-        h1, h2, h3, h4 {
-            margin-bottom: 20px;
-            color: var(--primary-color);
-        }
-
-        p {
-            margin-bottom: 15px;
-        }
-
-        a {
-            color: var(--primary-color);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        a:hover {
-            color: var(--accent-color);
-        }
-
+        h1, h2, h3, h4 { color: var(--text-main); font-weight: 700; letter-spacing: -0.01em; }
+        h1 { font-size: 4rem; line-height: 1.1; margin-bottom: 1.5rem; background: linear-gradient(135deg, var(--primary), #00c6fb); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        h2 { font-size: 2.2rem; margin-bottom: 2rem; padding-bottom: 10px; color: #1d1d1f; }
+        h3 { font-size: 1.5rem; margin-bottom: 1rem; color: #1d1d1f; }
+        p { color: var(--text-muted); margin-bottom: 1.2rem; font-size: 1.05rem; }
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        ul { list-style: none; }
+        
+        .container { width: 90%; max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        .section-padding { padding: 80px 0; }
+        .apple-box { background: var(--card-bg); border-radius: var(--card-radius); padding: 50px; box-shadow: var(--box-shadow); border: 1px solid var(--card-border); margin-bottom: 20px; transition: transform 0.3s ease; }
+        
         /* 导航栏 */
-        .navbar {
-            background-color: white;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
+        .navbar { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); width: auto; min-width: 500px; background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(0,0,0,0.05); border-radius: 50px; padding: 12px 35px; z-index: 1000; box-shadow: 0 4px 20px rgba(0,0,0,0.05); transition: all 0.3s; }
+        .nav-container { display: flex; align-items: center; justify-content: space-between; gap: 40px; }
+        .logo { font-weight: 800; font-size: 1.3rem; color: #1d1d1f; font-family: var(--font-mono); }
+        .nav-menu { display: flex; gap: 30px; }
+        .nav-menu a { font-size: 1rem; font-weight: 500; color: #515154; transition: 0.2s; }
+        .nav-menu a:hover, .nav-menu a.active { color: var(--primary); }
+        .hamburger { display: none; color: #1d1d1f; font-size: 1.5rem; cursor: pointer; }
+
+        /* Hero */
+        .hero { min-height: 90vh; display: flex; align-items: center; padding-top: 120px; }
+        .hero-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 60px; align-items: center; }
+        .hero-tags { font-family: var(--font-mono); color: var(--primary); font-size: 1rem; font-weight: 600; margin-bottom: 20px; display: inline-block; background: rgba(0, 113, 227, 0.1); padding: 6px 16px; border-radius: 20px; }
+        .hero-desc { font-size: 1.3rem; max-width: 600px; margin-bottom: 2.5rem; color: #424245; font-weight: 400;}
+        .hero-avatar-wrapper { position: relative; width: 380px; height: 380px; margin: 0 auto; }
+        .hero-avatar { width: 100%; height: 100%; object-fit: cover; border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; box-shadow: 20px 20px 60px rgba(0,0,0,0.1); animation: morph 8s ease-in-out infinite; }
+        @keyframes morph { 0% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; } 50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; } 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; } }
+        
+        .btn { display: inline-flex; align-items: center; gap: 10px; padding: 14px 32px; font-size: 1.05rem; background: var(--primary); color: #fff; border-radius: 30px; font-weight: 500; transition: 0.3s; border: none; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 113, 227, 0.3); }
+        .btn:hover { background: #0077ed; transform: translateY(-2px); }
+
+        /* Timeline (履历) & Tags (新加的标签样式) */
+        .timeline-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+        .timeline-column h3 { margin-bottom: 30px; display: flex; align-items: center; gap: 12px; font-size: 1.4rem; color: var(--primary); }
+        .timeline-item { position: relative; padding-left: 35px; margin-bottom: 40px; border-left: 2px solid rgba(0,0,0,0.1); }
+        .timeline-item::before { content: ''; position: absolute; left: -6px; top: 6px; width: 10px; height: 10px; border-radius: 50%; background: #fff; border: 3px solid var(--primary); }
+        .t-date { font-family: var(--font-mono); color: var(--text-muted); font-size: 0.9rem; font-weight: 600; margin-bottom: 5px; display: block; }
+        .t-role { font-size: 1.2rem; color: #1d1d1f; font-weight: 700; margin-bottom: 5px; }
+        .t-org { font-size: 1rem; color: #86868b; font-style: italic; font-weight: 500; }
+        .timeline-item p { font-size: 1rem; margin-top: 8px; color: #6e6e73; }
+
+        /* --- 新增：荣誉标签样式 --- */
+        .honor-tags-wrapper { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+        .honor-tag { 
+            font-family: var(--font-mono);
+            font-size: 0.75rem; 
+            font-weight: 600;
+            color: var(--primary);
+            background-color: rgba(0, 113, 227, 0.08); 
+            padding: 4px 12px;
+            border-radius: 12px; 
+            border: 1px solid rgba(0, 113, 227, 0.2); 
+            cursor: default;
+            transition: all 0.2s ease;
         }
+        .honor-tag:hover { background-color: var(--primary); color: #fff; transform: translateY(-1px); }
+        /* ----------------------- */
 
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 0;
-        }
+        /* Skills */
+        .skills-wrapper { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+        .skill-item { margin-bottom: 15px; }
+        .skill-header { display: flex; justify-content: space-between; margin-bottom: 10px; font-weight: 600; color: #1d1d1f; font-size: 1rem; }
+        .progress-bar { width: 100%; height: 8px; background: rgba(0,0,0,0.06); border-radius: 4px; overflow: hidden; }
+        .progress-fill { height: 100%; background: var(--primary); border-radius: 4px; }
 
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--primary-color);
-        }
+        /* Awards */
+        .awards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+        .award-card { background: #fbfbfd; border: 1px solid rgba(0,0,0,0.05); padding: 20px; border-radius: 16px; position: relative; overflow: hidden; transition: 0.3s; }
+        .award-card:hover { transform: translateY(-3px); border-color: var(--primary); background: #fff; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        .award-card i { position: absolute; right: 15px; bottom: -10px; font-size: 4rem; color: rgba(0,0,0,0.03); transform: rotate(-15deg); }
+        .award-level { display: inline-block; font-size: 0.8rem; background: rgba(0, 113, 227, 0.1); color: var(--primary); padding: 4px 10px; border-radius: 6px; margin-bottom: 10px; font-weight: 600; }
+        .award-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 5px; line-height: 1.4; color: #1d1d1f; }
+        .award-issuer { font-size: 0.9rem; color: var(--text-muted); }
 
-        .nav-menu {
-            display: flex;
-            list-style: none;
-        }
+        /* Portfolio */
+        .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+        .project-card { border-radius: 20px; overflow: hidden; position: relative; height: 320px; background: #fff; box-shadow: var(--box-shadow); }
+        .project-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+        .project-card:hover .project-img { transform: scale(1.08); }
+        .project-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.2)); display: flex; flex-direction: column; justify-content: flex-end; padding: 30px; transform: translateY(100px); opacity: 0; transition: 0.4s; }
+        .project-card:hover .project-overlay { transform: translateY(0); opacity: 1; }
+        .project-overlay h3 { color: #fff; font-size: 1.4rem; margin-bottom: 8px; }
+        .project-overlay p { font-size: 1rem; color: #e5e5e5; margin-bottom: 15px; }
 
-        .nav-menu li {
-            margin-left: 30px;
-        }
+        /* Personal & Layout */
+        .personal-layout { display: grid; grid-template-columns: 1.5fr 1fr; gap: 30px; }
+        .hobby-cloud { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 15px; }
+        .hobby-tag { background: #f2f2f7; padding: 8px 18px; border-radius: 20px; font-size: 0.95rem; color: #1d1d1f; display: flex; align-items: center; gap: 8px; transition: 0.3s; cursor: default; }
+        .hobby-tag:hover { background: var(--primary); color: #fff; }
+        .quote-box { display: flex; align-items: center; justify-content: center; text-align: center; background: linear-gradient(135deg, #f9f9fb, #fff); }
+        .quote-text { font-family: 'Times New Roman', serif; font-size: 1.4rem; font-style: italic; color: #1d1d1f; line-height: 1.5; }
+        .quote-text i { color: var(--primary); opacity: 0.4; font-size: 1.5rem; vertical-align: top; }
 
-        .nav-menu a {
-            color: var(--dark-color);
-            font-weight: 500;
-        }
+        /* Contact */
+        .contact-section { text-align: center; max-width: 700px; margin: 0 auto; }
+        .social-bar { display: flex; justify-content: center; gap: 25px; margin-top: 40px; }
+        .social-btn { width: 50px; height: 50px; border-radius: 50%; background: #fff; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; color: #1d1d1f; transition: 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.05); }
+        .social-btn:hover { background: var(--primary); color: white; transform: translateY(-4px); }
 
-        .hamburger {
-            display: none;
-            cursor: pointer;
-        }
+        footer { padding: 50px 0; text-align: center; border-top: 1px solid rgba(0,0,0,0.05); margin-top: 80px; font-size: 0.9rem; color: var(--text-muted); background: #fff; }
 
-        /* 头部区域 */
-        .header {
-            padding-top: 100px;
-            padding-bottom: 60px;
-            text-align: center;
-            background: linear-gradient(135deg, var(--primary-color) 0%, #2c3e50 100%);
-            color: white;
-        }
-
-        .avatar {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 5px solid white;
-            margin-bottom: 20px;
-        }
-
-        .intro-text {
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        /* 卡片样式 */
-        .card {
-            background: white;
-            border-radius: 10px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-        }
-
-        /* 联系表单 */
-        .contact-form input,
-        .contact-form textarea {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-
-        .contact-form textarea {
-            height: 150px;
-        }
-
-        .btn {
-            display: inline-block;
-            background: var(--primary-color);
-            color: white;
-            padding: 12px 25px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        .btn:hover {
-            background: var(--accent-color);
-        }
-
-        /* 时间轴样式 */
-        .timeline {
-            position: relative;
-            margin: 30px 0;
-            padding-left: 30px;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 2px;
-            height: 100%;
-            background: var(--primary-color);
-        }
-
-        .timeline-item {
-            position: relative;
-            margin-bottom: 30px;
-        }
-
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -38px;
-            top: 5px;
-            width: 15px;
-            height: 15px;
-            border-radius: 50%;
-            background: var(--primary-color);
-        }
-
-        /* 作品展示 */
-        .portfolio-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .portfolio-item {
-            position: relative;
-            overflow: hidden;
-            border-radius: 10px;
-        }
-
-        .portfolio-img {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-            transition: transform 0.5s;
-        }
-
-        .portfolio-item:hover .portfolio-img {
-            transform: scale(1.1);
-        }
-
-        .portfolio-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 20px;
-            transform: translateY(100%);
-            transition: transform 0.3s;
-        }
-
-        .portfolio-item:hover .portfolio-overlay {
-            transform: translateY(0);
-        }
-
-        /* 技能条 */
-        .skill-bar {
-            background: #e9ecef;
-            border-radius: 5px;
-            margin-bottom: 15px;
-        }
-
-        .skill-level {
-            background: var(--primary-color);
-            color: white;
-            padding: 5px 10px;
-            border-radius: 5px;
-            text-align: right;
-            font-size: 14px;
-        }
-
-        /* 页脚 */
-        .footer {
-            background: var(--dark-color);
-            color: white;
-            padding: 40px 0;
-            text-align: center;
-        }
-
-        .social-links {
-            margin-bottom: 20px;
-        }
-
-        .social-links a {
-            color: white;
-            font-size: 1.5rem;
-            margin: 0 10px;
-        }
-
-        /* 证书与奖项表格 */
-        .certificate-table table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 15px;
-        }
-
-        .certificate-table th,
-        .certificate-table td {
-            border: 1px solid #ddd;
-            padding: 12px 15px;
-            text-align: left;
-        }
-
-        .certificate-table th {
-            background-color: var(--primary-color);
-            color: white;
-        }
-
-        .certificate-table tr:nth-child(even) {
-            background-color: #f4f4f4;
-        }
-
-        .certificate-table tr:hover {
-            background-color: var(--accent-color);
-            color: white;
-            transition: 0.3s;
-        }
-
-        /* 响应式设计 */
-        @media (max-width: 768px) {
-            .nav-menu {
-                position: fixed;
-                left: -100%;
-                top: 70px;
-                flex-direction: column;
-                background-color: white;
-                width: 100%;
-                text-align: center;
-                transition: 0.3s;
-                box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-                padding: 20px 0;
-            }
-
-            .nav-menu.active {
-                left: 0;
-            }
-
-            .nav-menu li {
-                margin: 15px 0;
-            }
-
-            .hamburger {
-                display: block;
-            }
-
-            .portfolio-grid {
-                grid-template-columns: 1fr;
-            }
-        }
+        /* Mobile */
+        @media (max-width: 900px) { h1 { font-size: 2.8rem; } .hero-grid { grid-template-columns: 1fr; text-align: center; gap: 40px; } .hero-tags, .hero-desc { margin-left: auto; margin-right: auto; } .timeline-grid, .personal-layout { grid-template-columns: 1fr; } .navbar { width: 90%; min-width: auto; padding: 10px 20px; top: 15px; } .nav-menu { display: none; } .hamburger { display: block; } .nav-menu.active { display: flex; flex-direction: column; position: absolute; top: 70px; left: 0; width: 100%; background: rgba(255,255,255,0.95); padding: 25px; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.1); align-items: center; } .container { padding: 0 15px; } .apple-box { padding: 30px; } .hero-avatar-wrapper { width: 280px; height: 280px; } }
     </style>
 </head>
 <body>
-    <!-- 导航栏 -->
+
     <nav class="navbar">
-        <div class="container nav-container">
-            <a href="#" class="logo">照彻</a>
+        <div class="nav-container">
+            <a href="#" class="logo" id="nav-logo"></a>
             <ul class="nav-menu">
-                <li><a href="#about">关于我</a></li>
-                <li><a href="#experience">个人履历</a></li>
-                <li><a href="#portfolio">作品展示</a></li>
-                <li><a href="#personal">个性化内容</a></li>
-                <li><a href="#contact">联系方式</a></li>
+                <li><a href="#experience">履历</a></li>
+                <li><a href="#skills">技能</a></li>
+                <li><a href="#portfolio">作品</a></li>
+                <li><a href="#personal">个性</a></li>
+                <li><a href="#about">关于</a></li>
+                <li><a href="#contact">联系</a></li>
             </ul>
-            <div class="hamburger">
-                <i class="fas fa-bars"></i>
-            </div>
+            <div class="hamburger"><i class="fas fa-bars"></i></div>
         </div>
     </nav>
 
-    <!-- 头部区域 -->
-    <header class="header">
-        <div class="container">
-            <img src="https://placehold.co/200x200?text=照彻" alt="照彻的头像" class="avatar">
-            <h1>照彻</h1>
-            <div class="intro-text">
-                <p>嵌入式软件工程师 | 摄影爱好者 | 旅行者</p>
-                <p>让硅片思考，让想法闪光</p>
+    <header class="container hero">
+        <div class="hero-grid">
+            <div class="hero-content">
+                <span class="hero-tags" id="hero-tags"></span>
+                <h1 id="hero-title"></h1>
+                <p class="hero-desc" id="hero-desc"></p>
+                <div class="hero-btns">
+                    <a href="#contact" class="btn">联系我 <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="hero-avatar-wrapper">
+                <img id="hero-avatar" src="" alt="Avatar" class="hero-avatar">
             </div>
         </div>
     </header>
 
-    <!-- 关于我 -->
-    <section id="about">
+    <section id="experience" class="section-padding">
         <div class="container">
-            <h2>关于我</h2>
-            <div class="card">
-                <p>你好！我是照彻，一名充满热情的嵌入式软件工程师。我热爱将复杂问题转化为简洁优雅的解决方案，喜欢学习新技术和挑战自己。</p>
-                <p>工作之余，我喜欢摄影、阅读和旅行。我相信生活需要平衡，而创意往往来自于工作之外的兴趣和体验。</p>
-                <p>我的工作理念是：保持好奇心，持续学习，注重细节，为用户创造有价值的体验。</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- 个人履历 -->
-    <section id="experience">
-        <div class="container">
-            <h2>个人履历</h2>
-            <div class="card">
-                <h3>教育背景</h3>
-                <div class="timeline">
-                    <div class="timeline-item">
-                        <h4>电子信息 硕士</h4>
-                        <p>华南师范大学 | 2024 - 2027</p>
-                        <p>主修光电信息工程，获校级一等学业奖学金、国家奖学金</p>
+            <div class="apple-box">
+                <div class="timeline-grid">
+                    <div class="timeline-column">
+                        <h3><i class="fas fa-graduation-cap"></i> 教育背景</h3>
+                        <div id="edu-list"></div>
                     </div>
-                    <div class="timeline-item">
-                        <h4>电子信息工程 学士</h4>
-                        <p>邵阳学院 | 2020 - 2024</p>
-                        <p>主修嵌入式软件开发，获校级甲等奖学金、获评湖南省创新创业优秀毕业生。</p>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <h3>工作经历</h3>
-                <div class="timeline">
-                    <div class="timeline-item">
-                        <h4>研发工程师</h4>
-                        <p>广东高科自动化有限公司 | 2024年11月 - 至今</p>
-                        <p>负责公司自由空间光通信产品的架构设计与实现。</p>
-                    </div>
-                    <div class="timeline-item">
-                        <h4>联合培养</h4>
-                        <p>粤港澳大湾区(东莞)新一代信息技术国家卓越工程师创新研究院 | 2024年11月 - 至今</p>
-                        <p>参与企业级应用开发，实现响应式网页设计和交互功能。</p>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <h3>技能树</h3>
-                <div class="skills">
-                    <p>嵌入式软件开发</p>
-                    <div class="skill-bar">
-                        <div class="skill-level" style="width: 95%">90%</div>
-                    </div>
-                    <p>电路设计</p>
-                    <div class="skill-bar">
-                        <div class="skill-level" style="width: 90%">80%</div>
-                    </div>
-                    <p>PCB layout</p>
-                    <div class="skill-bar">
-                        <div class="skill-level" style="width: 85%">80%</div>
-                    </div>
-                    <p>上位机开发</p>
-                    <div class="skill-bar">
-                        <div class="skill-level" style="width: 80%">40%</div>
-                    </div>
-                    <p>网页设计</p>
-                    <div class="skill-bar">
-                        <div class="skill-level" style="width: 75%">30%</div>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <h3>证书与奖项</h3>
-                <div class="certificate-table">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>项目名称</th>
-                                <th>所获奖项</th>
-                                <th>主办单位</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>嵌入式芯片与系统设计竞赛</td>
-                                <td>国家级一等奖</td>
-                                <td>中国电子学会</td>
-                            </tr>
-                            <tr>
-                                <td>大学生智能硬件设计竞赛</td>
-                                <td>国家级一等奖</td>
-                                <td>中国电子学会</td>
-                            </tr>
-                            
-                            <tr>
-                                <td>蓝桥杯全国软件和信息技术专业竞赛</td>
-                                <td>国家级二等奖</td>
-                                <td>工业和信息化部</td>
-                            </tr>
-                            <tr>
-                                <td>大学生创新创业训练计划项目</td>
-                                <td>国家级（已结题）</td>
-                                <td>湖南省教育厅</td>
-                            </tr>
-                              <tr>
-                                <td>湖南省物联网应用创新设计竞赛</td>
-                                <td>省级二等奖</td>
-                                <td>湖南省教育厅</td>
-                             </tr>
-                              <tr>
-                                <td>湖南省大学生电子设计竞赛</td>
-                                <td>省级三等奖</td>
-                                <td>湖南省教育厅</td>
-                            </tr>
-                             <tr>
-                                <td>中国研究生电子设计竞赛</td>
-                                <td>省级二等奖</td>
-                                <td>中国学位与研究生教育学会</td>
-                            </tr>
-                            
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 作品展示 -->
-    <section id="portfolio">
-        <div class="container">
-            <h2>作品展示</h2>
-            <div class="portfolio-grid">
-                <div class="portfolio-item">
-                    <img src="物联网.jpg" alt="项目一" class="portfolio-img">
-                    <div class="portfolio-overlay">
-                        <h3>商品配送机器人</h3>
-                        <p>湖南省物联网应用创新设计竞赛</p>
-                        <a href="#" class="btn">查看详情</a>
-                    </div>
-                </div>
-                <div class="portfolio-item">
-                    <img src="最佳.png" alt="项目二" class="portfolio-img">
-                    <div class="portfolio-overlay">
-                        <h3>基于CH32的智能充电桩</h3>
-                        <p>大学生嵌入式芯片与系统设计竞赛</p>
-                        <a href="#" class="btn">查看详情</a>
-                    </div>
-                </div>
-                <div class="portfolio-item">
-                    <img src="2025研电赛.png" alt="项目三" class="portfolio-img">
-                    <div class="portfolio-overlay">
-                        <h3>基于外加扰动信号的MZM偏压控制器</h3>
-                        <p>中国研究生电子设计竞赛</p>
-                        <a href="#" class="btn">查看详情</a>
+                    <div class="timeline-column">
+                        <h3><i class="fas fa-briefcase"></i> 工作经历</h3>
+                        <div id="work-list"></div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 个性化内容 -->
-    <section id="personal">
+    <section id="skills" class="section-padding">
         <div class="container">
-            <h2>个性化内容</h2>
-            <div class="card">
-                <h3>兴趣爱好</h3>
-                <p>摄影、徒步旅行、阅读科幻小说、咖啡品尝、古典音乐</p>
-            </div>
-            <div class="card">
-                <h3>座右铭</h3>
-                <blockquote>"代码就像诗，应当简洁而优雅。"</blockquote>
+            <div class="apple-box">
+                <h2>技能矩阵</h2>
+                <div class="skills-wrapper" id="skills-list"></div>
             </div>
         </div>
     </section>
 
-    <!-- 联系方式 -->
-    <section id="contact">
+    <section id="awards" class="section-padding">
         <div class="container">
-            <h2>联系方式</h2>
-            <div class="card">
-                <p><i class="fas fa-envelope"></i> 邮箱：<a href="mailto:1234567890@qq.com">1234567890@qq.com</a></p>
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-weibo"></i></a>
-                    <a href="#"><i class="fab fa-weixin"></i></a>
-                    <a href="#"><i class="fab fa-linkedin"></i></a>
-                    <a href="#"><i class="fab fa-github"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
+            <div class="apple-box">
+                <h2>荣誉墙</h2>
+                <div class="awards-grid" id="awards-list"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="portfolio" class="section-padding">
+        <div class="container">
+            <h2>项目展示</h2>
+            <div class="portfolio-grid" id="portfolio-list"></div>
+        </div>
+    </section>
+
+    <section id="personal" class="section-padding">
+        <div class="container">
+            <div class="personal-layout">
+                <div class="apple-box">
+                    <h3><i class="fas fa-heart" style="color: #ff2d55;"></i> 兴趣爱好</h3>
+                    <div class="hobby-cloud" id="hobby-list"></div>
+                </div>
+                <div class="apple-box quote-box">
+                    <div>
+                        <div class="quote-text" id="quote-text"></div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 页脚 -->
-    <footer class="footer">
+    <section id="about" class="section-padding">
         <div class="container">
-            <div class="social-links">
-                <a href="#"><i class="fab fa-weibo"></i></a>
-                <a href="#"><i class="fab fa-weixin"></i></a>
-                <a href="#"><i class="fab fa-linkedin"></i></a>
-                <a href="#"><i class="fab fa-github"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
+            <div class="apple-box">
+                <h2>关于我</h2>
+                <div id="about-content" style="column-count: 1; gap: 50px;"></div>
             </div>
-            <p>© 2025 照彻的个人网页. 保留所有权利.</p>
-            <p>邮箱: <a href="mailto:1234567890@qq.com">1234567890@qq.com</a></p>
+        </div>
+    </section>
+
+    <section id="contact" class="section-padding">
+        <div class="container contact-section">
+            <h2 style="margin-bottom: 10px;">保持联系</h2>
+            <p id="contact-desc"></p>
+            <a id="contact-email" href="" class="btn" style="margin-top: 25px; font-size: 1.1rem;"></a>
+            <div class="social-bar" id="social-list"></div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p id="footer-text"></p>
         </div>
     </footer>
 
     <script>
-        // 导航栏切换
-        const hamburger = document.querySelector('.hamburger');
-        const navMenu = document.querySelector('.nav-menu');
+        const config = {
+            base: {
+                logoText: "<ZhaoChe />", 
+                // ↓↓↓↓ 修改了这里：使用本地图片 ↓↓↓↓
+                avatar: "头像.jpg",
+                // ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
+                email: "1234567890@qq.com",
+                footer: "© 2025 照彻 | Designed with Logic & Passion."
+            },
+            hero: {
+                tags: "#Embedded #Optics #Photography", 
+                title: "你好，我是照彻。", 
+                desc: "一名充满热情的嵌入式软件工程师。专注于将复杂的电路逻辑转化为优雅的代码，并在光通信与自动化领域不断探索。工作之余，我是世界的观察者与记录者。"
+            },
+            about: {
+                intro: `
+                    <p style="font-size: 1.15rem; color: #1d1d1f; line-height: 1.8;">
+                        你好！我是照彻，一名追求极致的嵌入式软件工程师。我热爱将复杂问题转化为简洁优雅的解决方案，喜欢学习新技术和挑战自己。在代码的世界里，我相信逻辑的严密与架构的美感同等重要。
+                    </p>
+                    <p>工作之余，我喜欢摄影、阅读和旅行。我相信生活需要平衡，而创意往往来自于工作之外的兴趣和体验。摄影教会我观察光的艺术，而这也意外地与我从事的光通信研究产生了共鸣。</p>
+                `,
+                philosophy: "我的工作理念是：保持好奇心，持续学习，注重细节，为用户创造有价值的体验。"
+            },
+            timeline: {
+                education: [
+                    { 
+                        date: "2024 - 2027", 
+                        role: "华南师范大学", 
+                        org: "电子信息 硕士", 
+                        tags: ["国家奖学金", "校级一等奖学金"]
+                    },
+                    { 
+                        date: "2020 - 2024", 
+                        role: "邵阳学院", 
+                        org: "电子信息工程 学士", 
+                        tags: ["湖南省创新创业优秀毕业生", "校级甲等奖学金"]
+                    }
+                ],
+                work: [
+                    { 
+                        date: "2024.11 - 至今", 
+                        role: "国家卓越工程师创新研究院 & 广东高科有限公司", 
+                        org: "研发工程师", 
+                        desc: "负责自由空间光通信产品的架构设计与底层驱动实现。" 
+                    },
+                    { 
+                        date: "2024.11 - 至今", 
+                        role: "联合培养", 
+                        org: "某科技企业", 
+                        desc: "参与企业级应用开发，实现响应式网页设计和交互功能。" 
+                    }
+                ]
+            },
+            skills: [
+                { name: "嵌入式开发", percent: "90%" },
+                { name: "电路设计", percent: "80%" },
+                { name: "PCB Layout", percent: "70%" },
+                { name: "上位机开发", percent: "30%" },
+                { name: "网页设计", percent: "30%" }
+            ],
+            awards: [
+                { level: "国家级一等奖", title: "嵌入式芯片与系统设计竞赛", issuer: "中国电子学会", icon: "fa-trophy" },
+                { level: "国家级一等奖", title: "大学生智能硬件设计竞赛", issuer: "中国电子学会", icon: "fa-microchip" },
+                { level: "国家级二等奖", title: "蓝桥杯全国软件和信息技术竞赛", issuer: "工业和信息化部", icon: "fa-code" },
+                { level: "国家级（已结题）", title: "大学生创新创业训练计划项目", issuer: "湖南省教育厅", icon: "fa-lightbulb" },
+                { level: "省级二等奖", title: "湖南省物联网应用创新设计竞赛", issuer: "湖南省教育厅", icon: "fa-wifi" },
+                { level: "省级二等奖", title: "中国研究生电子设计竞赛", issuer: "中国学位与研究生教育学会", icon: "fa-medal" }
+            ],
+            projects: [
+                {
+                    title: "商品配送机器人",
+                    desc: "湖南省物联网应用创新设计竞赛项目。集成了自动导航与避障功能。",
+                    img: "https://placehold.co/600x400/f5f5f7/0071e3?text=IoT+Robot",
+                    link: "#"
+                },
+                {
+                    title: "基于CH32的智能充电桩",
+                    desc: "大学生嵌入式芯片与系统设计竞赛一等奖作品。",
+                    img: "https://placehold.co/600x400/f5f5f7/0071e3?text=Smart+Charge",
+                    link: "#"
+                },
+                {
+                    title: "MZM偏压控制器",
+                    desc: "基于外加扰动信号的设计，中国研究生电子设计竞赛获奖作品。",
+                    img: "https://placehold.co/600x400/f5f5f7/0071e3?text=MZM+Controller",
+                    link: "#"
+                }
+            ],
+            hobbies: [
+                { name: "摄影", icon: "fa-camera" },
+                { name: "徒步旅行", icon: "fa-hiking" },
+                { name: "美食", icon: "fa-book-open" },
+                { name: "咖啡品尝", icon: "fa-coffee" },
+                { name: "羽球", icon: "fa-music" }
+            ],
+            quote: '<i class="fas fa-quote-left"></i> 代码应当简洁而优雅  <i class="fas fa-quote-right"></i>',
+            contactDesc: "无论是技术探讨、项目合作还是摄影交流，随时欢迎联系。",
+            socials: [
+                { icon: "fab fa-weibo", link: "#" },
+                { icon: "fab fa-weixin", link: "#" },
+                { icon: "fab fa-linkedin-in", link: "#" },
+                { icon: "fab fa-github", link: "#" },
+                { icon: "fab fa-twitter", link: "#" }
+            ]
+        };
 
-        hamburger.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-        });
+        // ==========================================================================
+        // 【逻辑区域】
+        // ==========================================================================
+        document.addEventListener('DOMContentLoaded', () => {
+            // Base
+            document.title = `${config.base.logoText.replace(/<|>/g, '')} | 个人主页`;
+            document.getElementById('nav-logo').textContent = config.base.logoText;
+            document.getElementById('hero-avatar').src = config.base.avatar;
+            document.getElementById('contact-email').innerHTML = `<i class="fas fa-envelope"></i> ${config.base.email}`;
+            document.getElementById('contact-email').href = `mailto:${config.base.email}`;
+            document.getElementById('footer-text').textContent = config.base.footer;
 
-        // 关闭移动端菜单
-        document.querySelectorAll('.nav-menu a').forEach(item => {
-            item.addEventListener('click', () => {
-                navMenu.classList.remove('active');
+            // Hero
+            document.getElementById('hero-tags').textContent = config.hero.tags;
+            document.getElementById('hero-title').innerHTML = config.hero.title;
+            document.getElementById('hero-desc').innerHTML = config.hero.desc; 
+
+            // About
+            const aboutHtml = config.about.intro + 
+                `<p style="color: var(--primary); font-weight: 600; margin-top: 20px; font-size: 1.1rem; background: rgba(0,113,227,0.05); padding: 15px; border-radius: 12px;">
+                    <i class="fas fa-lightbulb" style="margin-right:8px;"></i>${config.about.philosophy}
+                </p>`;
+            document.getElementById('about-content').innerHTML = aboutHtml;
+
+            // Timeline Helper
+            const createTimeline = (items, containerId) => {
+                const html = items.map(item => {
+                    let contentHtml = '';
+                    if (item.tags && Array.isArray(item.tags)) {
+                        const tags = item.tags.map(tag => `<span class="honor-tag">${tag}</span>`).join('');
+                        contentHtml = `<div class="honor-tags-wrapper">${tags}</div>`;
+                    } else if (item.desc) {
+                        contentHtml = `<p>${item.desc}</p>`;
+                    }
+
+                    return `
+                        <div class="timeline-item">
+                            <span class="t-date">${item.date}</span>
+                            <div class="t-role">${item.role}</div>
+                            <div class="t-org">${item.org}</div>
+                            ${contentHtml}
+                        </div>
+                    `;
+                }).join('');
+                document.getElementById(containerId).innerHTML = html;
+            };
+            createTimeline(config.timeline.education, 'edu-list');
+            createTimeline(config.timeline.work, 'work-list');
+
+            // Skills
+            const skillsHtml = config.skills.map(s => `
+                <div class="skill-item">
+                    <div class="skill-header"><span>${s.name}</span> <span>${s.percent}</span></div>
+                    <div class="progress-bar"><div class="progress-fill" style="width: ${s.percent}"></div></div>
+                </div>
+            `).join('');
+            document.getElementById('skills-list').innerHTML = skillsHtml;
+
+            // Awards
+            const awardsHtml = config.awards.map(a => `
+                <div class="award-card">
+                    <span class="award-level">${a.level}</span>
+                    <div class="award-title">${a.title}</div>
+                    <div class="award-issuer">${a.issuer}</div>
+                    <i class="fas ${a.icon}"></i>
+                </div>
+            `).join('');
+            document.getElementById('awards-list').innerHTML = awardsHtml;
+
+            // Projects
+            const projHtml = config.projects.map(p => `
+                <div class="project-card">
+                    <img src="${p.img}" alt="${p.title}" class="project-img">
+                    <div class="project-overlay">
+                        <h3>${p.title}</h3>
+                        <p>${p.desc}</p>
+                        <a href="${p.link}" class="btn" style="padding: 10px 20px; font-size: 0.9rem;">详情</a>
+                    </div>
+                </div>
+            `).join('');
+            document.getElementById('portfolio-list').innerHTML = projHtml;
+
+            // Personal
+            const hobbyHtml = config.hobbies.map(h => `
+                <span class="hobby-tag"><i class="fas ${h.icon}"></i> ${h.name}</span>
+            `).join('');
+            document.getElementById('hobby-list').innerHTML = hobbyHtml;
+            document.getElementById('quote-text').innerHTML = config.quote;
+
+            // Contact
+            document.getElementById('contact-desc').innerHTML = config.contactDesc;
+            const socialHtml = config.socials.map(s => `
+                <a href="${s.link}" class="social-btn"><i class="${s.icon}"></i></a>
+            `).join('');
+            document.getElementById('social-list').innerHTML = socialHtml;
+
+            // Animation
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
             });
-        });
-
-        // 平滑滚动
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                if(targetId === '#') return;
-                const targetElement = document.querySelector(targetId);
-                if(targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 70,
-                        behavior: 'smooth'
-                    });
+            document.querySelectorAll('.apple-box, .project-card, .timeline-item').forEach((el) => {
+                el.style.opacity = 0;
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = 'all 0.6s ease-out';
+                observer.observe(el);
+            });
+            
+            // Hamburger Menu
+            const hamburger = document.querySelector('.hamburger');
+            const navMenu = document.querySelector('.nav-menu');
+            hamburger.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+                const icon = hamburger.querySelector('i');
+                icon.className = navMenu.classList.contains('active') ? 'fas fa-times' : 'fas fa-bars';
+            });
+            document.querySelectorAll('.nav-menu a').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (navMenu.classList.contains('active')) {
+                        navMenu.classList.remove('active');
+                        hamburger.querySelector('i').className = 'fas fa-bars';
+                    }
+                });
+            });
+            
+            // Navbar Scroll
+            window.addEventListener('scroll', () => {
+                const navbar = document.querySelector('.navbar');
+                if (window.scrollY > 50) {
+                    navbar.style.padding = '10px 30px';
+                    navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+                } else {
+                    navbar.style.padding = '12px 35px';
+                    navbar.style.background = 'rgba(255, 255, 255, 0.8)';
                 }
             });
         });
